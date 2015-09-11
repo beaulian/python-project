@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" Content="text/html" charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>重大易班助手</title>
+		<link rel="stylesheet" href="bootstrap.min.css" type="text/css" >
+		<script>
+			window.location.href="https://oauth.yiban.cn/code/web?client_id=7eb77cdabc7a6a2f&redirect_uri=http://f.yiban.cn/iapp6657";
+		</script>
+	</head>
+	<body>
+    <div align="center">
+        <h3><img src="1.jpg" width="30px" />&nbsp;&nbsp;2015级新生信息查询</h3>
+		<br>
+		<br>
+        <form action="http://127.0.0.1:5000/stuinfo" method="get" class="form-horizontal" role="form">
+            <div class="form-group">
+				 <input type="text" class="form-control" placeholder="   请输入名字" name="name">
+		   </div>
+            <input type="submit" class="btn-block btn-success btn" value="查询">
+        </form>
+
+		<div class="copyright" style="align:center;margin-top:100px;">@重庆大学易班工作站技术部 2015.8</div>
+    </div>
+	<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+	<script>
+		console.log(window.location.search);
+	</script>
+	<script type="text/javascript" src="bootstrap.min.js"></script>
+	</body>
+</html>

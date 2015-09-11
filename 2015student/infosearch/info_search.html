@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" Content="text/html" charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>重大易班助手</title>
+		<link rel="stylesheet" href="bootstrap.min.css" type="text/css" >
+	</head>
+	<body>
+    <script>
+       function refCode() {
+            var img = document.getElementById("securityCode");
+            img.src = "http://127.0.0.1:5000/securityCode?refresh=" + new Date().getTime();
+       }
+    </script>
+    <div align="center">
+        <h3><img src="cqu.jpg" width="30px" />&nbsp;&nbsp;2015级新生信息查询</h3>
+		<br>
+		<br>
+        <form action="http://127.0.0.1:5000/stuinfo" method="get" class="form-horizontal" role="form">
+            <div class="form-group">
+				 <input type="text" class="form-control" placeholder="   请输入名字" name="name">
+		   </div>
+			 <div class="form-group">
+				 <input type="text" class="form-control" placeholder="   请输入验证码" name="code" style="width:40%;float:left;">
+				 <span style="float:left;" id="code"><img src='http://127.0.0.1:5000/securityCode' id="securityCode"><br>
+                 <a href="#" onclick="refCode()">看不清? 换张图片</a> </span>
+		   </div>
+            <input type="submit" class="btn-block btn-success btn" value="查询">
+        </form>
+		<div class="1"><h2></h2>
+<!-- 模态框1 按钮触发模态框 -->
+<button class="btn btn-primary btn" data-toggle="modal"
+   data-target="#myModal" style="float:left;">
+   找室友
+</button>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close"
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               查找室友
+            </h4>
+         </div>
+         <div class="modal-body">
+			 <div style="float:left;">
+				 <select class="selectpicker" data-style="btn-primary" id="selectyuan">
+				 <option value="0" selected>选择宿舍</option>
+				  <option value="1">梅园</option>
+				  <option value="2">竹园</option>
+				  <option value="3">松园</option>
+				  <option value="4">兰园</option>
+			 	</select>
+				 <select class="selectpicker" data-style="btn-primary" id="selectdong">
+					 <option value="0" selected>选择楼栋</option>
+					  <option value="11">一栋</option>
+					  <option value="12">二栋</option>
+					  <option value="13">三栋</option>
+					  <option value="14">四栋</option>
+					  <option value="15">五栋</option>
+					  <option value="16">六栋</option>
+					  <option value="17">七栋</option>
+				 </select>
+			 </div>
+			 <br>
+			 <br>
+			 <input type="text" class="form-control" placeholder='请输入寝室号' id="room" >
+         </div>
+		  <div style="margin-top:80px;float:left;" id="roommates"></div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary" id="submit">
+               提交
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div><!-- end -->
+</div>
+<div class="2"><h2></h2>
+<!-- 模态框2 按钮触发模态框 -->
+<button class="btn btn-primary btn" data-toggle="modal"
+   data-target="#myModal2" style="float:right;">
+   查看班级男女比例
+</button>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close"
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel2">
+               查看班级男女比例
+            </h4>
+         </div>
+         <div class="modal-body">
+			 <input type="text" class="form-control" placeholder='请输入班级,格式为按照所查询的班级格式' id="classID" >
+         </div>
+		  <div style="margin-top:50px;float:left;" id="scale"></div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary" id="submit2">
+               提交
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div><!-- end -->
+</div>
+
+		<div class="copyright" style="align:center;margin-top:250px;">@重庆大学易班工作站技术部 2015.8</div>
+    </div>
+	<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="ajax.js"></script>
+	<script type="text/javascript" src="bootstrap.min.js"></script>
+	</body>
+</html>

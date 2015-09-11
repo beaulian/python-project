@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" Content="text/html" charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>重大易班助手</title>
+		<link rel="stylesheet" href="/static/bootstrap.min.css" type="text/css" >
+
+	</head>
+	<body>
+
+        <div align="center">
+        {% if infos %}
+        <table class="table table-bordered">
+            {% for info in infos %}
+            <h3 align="center">{{ info.name }}的信息</h3>
+            <br>
+            <thead>
+                <tr class="active"><th colspan="2">个人基本信息</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>姓名: {{ info.name }}</td>
+                    <td>性别: {{ info.sex }}</td>
+                </tr>
+                <tr>
+                    <td>学号: {{ info.stuID }}</td>
+                    <td>班级: {{ info.classroom }}</td>
+                </tr>
+                <tr>
+                    <td>专业: {{ info.major }}</td>
+                    <td>所在学院: {{ info.academy }}</td>
+                </tr>
+                <tr class="active"><th colspan="2"><strong>宿舍信息</strong></th></tr>
+                <tr>
+                    <td>宿舍地址: {{ info.accommodation }}</td>
+                </tr>
+                <tr>
+                    <td>寝室号: {{ info.roomID }}</td>
+                    <td>床号: {{ info.bedID }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+            <br>
+            {% endfor %}
+            <div class="state" align="center"><p style="color:red;">如果出现多于一个的信息,则是出现重复的名字!</p></div>
+
+
+        {% else %}
+            <div><h2 style='color:red;'>请填写有效的名字!</h2></div>
+        {% endif %}
+        </div>
+
+
+	<script type="text/javascript" src="/static/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/static/bootstrap.min.js"></script>
+	</body>
+</html>
