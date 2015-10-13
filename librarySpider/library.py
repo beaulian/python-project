@@ -13,7 +13,15 @@ def library():
     spider = LibrarySpider(SID, password)
     spider.post()
     spider.main()
-    libraryJson = spider.libraryJson
+    if not spider.flag:
+        wrong = {
+            "errcode": 1,
+            "errmsg": "wrong_id"
+        }
+        libraryJson = wrong
+    else:
+        libraryJson = spider.libraryJson
+
     resp = make_response(json.dumps(libraryJson), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     resp.headers['Content-type'] = 'application/json'

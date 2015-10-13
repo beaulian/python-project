@@ -18,6 +18,7 @@ class LibrarySpider:
         self.SID = SID
         self.password = password
         self.response = None
+        self.flag = True   # 判断是否登录进去了
         self.prefixUrl = "https://sso.lib.cqu.edu.cn:8949/adlibSso/login"
         self.firstUrl = "https://sso.lib.cqu.edu.cn:8949/adlibSso/login? \
                         service=http%3A%2F%2Flib.cqu.edu.cn%2Fmetro%2Flogin.htm"
@@ -81,25 +82,28 @@ class LibrarySpider:
             try:
                 table = soup.find_all("table", attrs={"class": "liebiao"})[0]
                 print table
-            except Exception as e:
+            except IndexError as e:
+                self.flag = False
                 return
 
             font = soup.find_all("font", attrs={"class": "redfont"})
 
             alreadyBorrow = font[0].text
-            notComment = font[1].text
-            sumBorrow = font[2].text
+            currentBorrow = font[2].text
+            notComment = font[3].text
+            sumBorrow = font[4].text
             self.libraryJson["NowBorrow"]["alreadyBorrow"] = alreadyBorrow
             self.libraryJson["NowBorrow"]["notComment"] = notComment
             self.libraryJson["NowBorrow"]["sumBorrow"] = sumBorrow
+            self.libraryJson["NowBorrow"]["currentBorrow"] = currentBorrow
 
             tr = table.find_all("tr")
             th = tr[0].find_all("th")
 
-            for i in range(int(alreadyBorrow)):
+            for i in range(int(currentBorrow)):
                 self.libraryJson["NowBorrow"]["book_%s" % str(i+1)] = {}
 
-            for i in range(int(alreadyBorrow)):
+            for i in range(int(currentBorrow)):
                 for j in range(len(th)):
                     td = tr[i+1].find_all("td")
                     prefix_url = "http://lib.cqu.edu.cn"
