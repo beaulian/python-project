@@ -81,7 +81,6 @@ class LibrarySpider:
         else:
             try:
                 table = soup.find_all("table", attrs={"class": "liebiao"})[0]
-                print table
             except IndexError as e:
                 self.flag = False
                 return
