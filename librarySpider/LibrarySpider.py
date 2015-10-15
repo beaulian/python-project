@@ -101,8 +101,6 @@ class LibrarySpider:
 
             for i in range(int(currentBorrow)):
                 self.libraryJson["NowBorrow"]["book_%s" % str(i+1)] = {}
-
-            for i in range(int(currentBorrow)):
                 for j in range(len(th)):
                     td = tr[i+1].find_all("td")
                     prefix_url = "http://lib.cqu.edu.cn"
@@ -134,9 +132,7 @@ class LibrarySpider:
 
             for i in range(count_book):
                 self.libraryJson["ReadBooking"]["book_%s" % str(i+1)] = {}
-
-            for i in range(count_book):
-                for j in range(1,len(th)):
+                for j in range(1, len(th)):
                     td = tr[i+1].find_all("td")
                     prefix_url = "http://lib.cqu.edu.cn"
                     if j == 1:
@@ -154,7 +150,7 @@ class LibrarySpider:
         else:
             try:
                 table = soup.find_all("table", attrs={"class": "liebiao"})[0]
-            except Exception as e:
+            except IndexError as e:
                 return
             tr = table.find_all("tr")
             count_book = len(tr[1:])
@@ -162,9 +158,7 @@ class LibrarySpider:
             th = tr[0].find_all("th")
 
             for i in range(count_book):
-               self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)] = {}
-
-            for i in range(count_book):
+                self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)] = {}
                 for j in range(len(th)):
                     td = tr[i+1].find_all("td")
                     prefix_url = "http://lib.cqu.edu.cn"
@@ -182,7 +176,7 @@ class LibrarySpider:
             self.libraryJson["ReaderArrearage"]["statusinfo"] = "none"
         else:
             try:
-                table = soup.find_all("table",attrs={"class":"liebiao"})[0]
+                table = soup.find_all("table", attrs={"class":"liebiao"})[0]
             except Exception as e:
                 return
 
@@ -196,8 +190,6 @@ class LibrarySpider:
 
             for i in range(count_book):
                 self.libraryJson["ReaderArrearage"]["book_%s" % str(i+1)] = {}
-
-            for i in range(count_book):
                 for j in range(len(th)):
                     td = tr[i+1].find_all("td")
                 self.libraryJson["ReaderArrearage"]["book_%s" % str(i+1)][th[j].text.strip()] = td[j].text
@@ -218,4 +210,3 @@ class LibrarySpider:
             t.start()
         for t in threads:
             t.join()
-
