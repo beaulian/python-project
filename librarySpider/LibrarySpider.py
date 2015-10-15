@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup as Beautiful
 
 # -----------------------------------------------
 # 每一步都要传cookies
+# 注意优化程序性能,消除不必要的循环
 # JSESSIONID很重要,一定要把它作为cookies传给认证服务器
 # ------------------------------------------------
 
@@ -19,6 +20,8 @@ class LibrarySpider:
         self.password = password
         self.response = None
         self.flag = True   # 判断是否登录进去了
+        self.prefix_url = "http://lib.cqu.edu.cn"
+
         self.prefixUrl = "https://sso.lib.cqu.edu.cn:8949/adlibSso/login"
         self.firstUrl = "https://sso.lib.cqu.edu.cn:8949/adlibSso/login? \
                         service=http%3A%2F%2Flib.cqu.edu.cn%2Fmetro%2Flogin.htm"
@@ -98,16 +101,16 @@ class LibrarySpider:
 
             tr = table.find_all("tr")
             th = tr[0].find_all("th")
+            slen = len(th)
 
             for i in range(int(currentBorrow)):
                 self.libraryJson["NowBorrow"]["book_%s" % str(i+1)] = {}
-                for j in range(len(th)):
-                    td = tr[i+1].find_all("td")
-                    prefix_url = "http://lib.cqu.edu.cn"
+                td = tr[i+1].find_all("td")
+                for j in range(slen):
                     if j == 0:
-                        self.libraryJson["NowBorrow"]["book_%s" % str(i+1)][th[j].text.strip()] = prefix_url + td[j].img["src"]
+                        self.libraryJson["NowBorrow"]["book_%s" % str(i+1)][th[j].text.strip()] = self.prefix_url + td[j].img["src"]
                     elif j == 1:
-                        self.libraryJson["NowBorrow"]["book_%s" % str(i+1)][th[j].text.strip()] = [prefix_url+td[j].a["href"], td[j].text]
+                        self.libraryJson["NowBorrow"]["book_%s" % str(i+1)][th[j].text.strip()] = [self.prefix_url+td[j].a["href"], td[j].text]
                     elif j < 7:
                         self.libraryJson["NowBorrow"]["book_%s" % str(i+1)][th[j].text.strip()] = td[j].text
                     else:
@@ -129,16 +132,16 @@ class LibrarySpider:
             count_book = len(tr[1:])
             self.libraryJson["ReadBooking"]["count_book"] = str(count_book)
             th = tr[0].find_all("th")
+            slen = len(th)
 
             for i in range(count_book):
                 self.libraryJson["ReadBooking"]["book_%s" % str(i+1)] = {}
-                for j in range(1, len(th)):
-                    td = tr[i+1].find_all("td")
-                    prefix_url = "http://lib.cqu.edu.cn"
+                td = tr[i+1].find_all("td")
+                for j in range(1, slen):
                     if j == 1:
-                        self.libraryJson["ReadBooking"]["book_%s" % str(i+1)][th[j].text.strip()] = prefix_url + td[j].img["src"]
+                        self.libraryJson["ReadBooking"]["book_%s" % str(i+1)][th[j].text.strip()] = self.prefix_url + td[j].img["src"]
                     elif j == 2:
-                        self.libraryJson["ReadBooking"]["book_%s" % str(i+1)][th[j].text.strip()] = [prefix_url+td[j].a["href"],td[j].text]
+                        self.libraryJson["ReadBooking"]["book_%s" % str(i+1)][th[j].text.strip()] = [self.prefix_url+td[j].a["href"], td[j].text]
                     else:
                         self.libraryJson["ReadBooking"]["book_%s" % str(i+1)][th[j].text.strip()] = td[j].text
 
@@ -156,16 +159,16 @@ class LibrarySpider:
             count_book = len(tr[1:])
             self.libraryJson["OutDateInfo"]["count_book"] = str(count_book)
             th = tr[0].find_all("th")
+            slen = len(th)
 
             for i in range(count_book):
                 self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)] = {}
-                for j in range(len(th)):
-                    td = tr[i+1].find_all("td")
-                    prefix_url = "http://lib.cqu.edu.cn"
+                td = tr[i+1].find_all("td")
+                for j in range(slen):
                     if j == 0:
-                        self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)][th[j].text.strip()] = prefix_url + td[j].img["src"]
+                        self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)][th[j].text.strip()] = self.prefix_url + td[j].img["src"]
                     elif j == 1:
-                        self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)][th[j].text.strip()] = [prefix_url+td[j].a["href"],td[j].text]
+                        self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)][th[j].text.strip()] = [self.prefix_url+td[j].a["href"], td[j].text]
                     else:
                         self.libraryJson["OutDateInfo"]["book_%s" % str(i+1)][th[j].text.strip()] = td[j].text
 
@@ -187,12 +190,13 @@ class LibrarySpider:
             count_book = len(tr[1:])
             self.libraryJson["ReaderArrearage"]["count_book"] = str(count_book)
             th = tr[0].find_all("th")
+            slen = len(th)
 
             for i in range(count_book):
                 self.libraryJson["ReaderArrearage"]["book_%s" % str(i+1)] = {}
-                for j in range(len(th)):
+                for j in range(slen):
                     td = tr[i+1].find_all("td")
-                self.libraryJson["ReaderArrearage"]["book_%s" % str(i+1)][th[j].text.strip()] = td[j].text
+                    self.libraryJson["ReaderArrearage"]["book_%s" % str(i+1)][th[j].text.strip()] = td[j].text
 
     def main(self):
         threads = []
