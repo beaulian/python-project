@@ -78,9 +78,9 @@ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 color: #797268;
 }
 
-html>body td{ font-size:11px;}
-body,td,th {
-font-family: ËÎÌו, Arial;
+html> td{ font-size:11px;}
+td,th {
+font-family: Arial;
 font-size: 12px;
 }
 td,th{
