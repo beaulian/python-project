@@ -14,11 +14,8 @@
     <link href="/static/common/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="/static/common/jquery-1.11.1.min.js"></script>
      <script type="text/javascript" src="/static/common/bootstrap.min.js"></script>
-    <link href="/static/common/amazeui.min.css" rel="stylesheet">
     <script type="text/javascript" src="/static/common/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/static/common/amazeui.min.js"></script>
-    <script type="text/javascript" src="/static/library/spin.min.js"></script>
-    <script type="text/javascript" src="/static/library/ladda.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/yiban.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -57,29 +54,26 @@
 </head>
 
 <body id="body">
-    <div id="sform" style="display:block;margin-top:50px;">
-            <form class="am-form am-form-horizontal" id="libform">
-                <fieldset>
-                    <legend style="color:red;">图书馆借阅查询</legend>
-
-                <div class="am-form-group">
-                    <label for="SID">学号</label>
+    <div id="sform" style="display:block;">
+        <div class="wrapper">
+            <div class="container">
+                <h2>图书馆借阅查询</h2>
+                <form class="am-form am-form-horizontal" id="libform">
                     <input type="text" id="SID" name="SID" placeholder="请输入学号">
-                </div>
-                <div class="am-form-group">
-                    <label for="password">密码</label>
                     <input type="password" id="password" name="password" placeholder="请输入密码">
-                </div>
-                </fieldset>
-                <p><input id="submit" class="am-btn am-btn-primary" style="position:absolute;left:90px;width:100px;" value="登录"></p>
-            </form>
-            <p style="margin-top:200px;margin-left: 50px;">© 重庆大学易班工作站技术部</p>
-           
+                    <button id="submit" class="am">登录</button>
+                </form>
+                <img src="/static/search.png" alt="search.png"/>
+                <p>© 重庆大学易班工作站技术部</p>   
+            </div>
+        </div>    
     </div>
     <div id="library" style="display:none">
     <ul class="nav nav-tabs">
       <li role="presentation"><a href="javascript:void(0);" onclick="nnowborrow()">当前借阅</a></li>
       <li role="presentation"><a href="javascript:void(0);" onclick="readingbook()">我的预约</a></li>
+    </ul>
+    <ul class="nav nav-tabs">
       <li role="presentation"><a href="javascript:void(0);" onclick="outdateinfo()">超期信息</a></li>
       <li role="presentation"><a href="javascript:void(0);" onclick="reader()">欠款记录</a></li>
     </ul>

@@ -9,15 +9,11 @@
                     <meta name="description" content="重庆大学易班是广大学生的实名互动平台，提供了SNS、博客、微博等Web2.0应用。根据师生的需求，易班研发了话题、日程表等基于班级的特色应用，集成了大量的优质教育资源。">
 	<!-- <link rel="stylesheet" href="/static/repair/repair.css"/> -->
 	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-	
+	<link rel="stylesheet" type="text/css" href="/static/common/bootstrap.min.css">
     <script type="text/javascript" src="/static/common/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/static/common/bootstrap.min.js"></script>
-    <link href="/static/common/amazeui.min.css" rel="stylesheet">
     <script type="text/javascript" src="/static/common/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/static/common/amazeui.min.js"></script>
-    <!-- <link href="/static/custom.css" rel="stylesheet"> -->
-    <script type="text/javascript" src="/static/library/spin.min.js"></script>
-    <script type="text/javascript" src="/static/library/ladda.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/yiban.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -28,27 +24,20 @@
 </head>
 <body>
 
-<div id="sform" style="display:block;margin-top:50px;">
-     <div id="sform" style="display:block;margin-top:50px;">
-        <form class="am-form am-form-horizontal" id="network-form">
-            <fieldset>
-                <legend style="color:red;">网络报修登录</legend>
-
-            <div class="am-form-group">
-                <label for="SID">学号</label>
+<div id="sform" style="display:block;">
+	<div class="wrapper">
+        <div class="container">
+            <h2>网络报修登录</h2>
+            <form class="am-form am-form-horizontal" id="network-form">
                 <input type="text" id="SID" name="SID" placeholder="请输入学号">
-            </div>
-            <div class="am-form-group">
-                <label for="password">密码</label>
                 <input type="password" id="password" name="password" placeholder="请输入密码">
-            </div>
-            </fieldset>
-            <p><input id="submit" class="am-btn am-btn-primary" style="position:absolute;left:90px;width:100px;" value="登录"></p>
-        </form>
-        <p style="margin-top:200px;margin-left: 50px;">© 重庆大学易班工作站技术部</p>
-       
-	</div>
- </div>
+                <button id="submit" class="am">登录</button>
+            </form>
+            <img src="/static/search.png" alt="search.png"/>
+            <p>© 重庆大学易班工作站技术部</p>   
+        </div>
+    </div>    
+</div>
 <div id="whole" style="display:none;">
 <form class="am-form am-form-horizontal" id="network-form">
   	<fieldset>
@@ -198,10 +187,10 @@
 		</div>
 		<div class="am-form-group">
 			<label for="edit-problem-desc">故障描述 <span class="form-required" title="此项必填。">*</span></label>
- 			<textarea id="problem_desc" name="problem_desc" cols="30" rows="10" class="required"></textarea>
+ 			<input id="problem_desc" name="problem_desc" cols="30" rows="10" class="required">
  		</div>
 	</fieldset>
-	<p><button id="submit" class="am-btn am-btn-primary" onclick="tijiao()" style="margin-left:10px;">提交</button></p>
+	<button id="submit" class="btn btn-primary" onclick="tijiao()" style="margin-left:10px;">提交</button>
 </form>
 </div>
 <script type="text/javascript" src="/static/repair/handle.js"></script>

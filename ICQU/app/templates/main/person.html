@@ -13,11 +13,7 @@
     <script type="text/javascript" src="/static/common/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/static/common/bootstrap.min.js"></script>
     <link href="/static/custom.css" rel="stylesheet">
-    <script type="text/javascript" src="/static/library/spin.min.js"></script>
-    <script type="text/javascript" src="/static/library/ladda.min.js"></script>
     <script type="text/javascript" src="/static/common/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/static/common/amazeui.min.js"></script>
-    <link href="/static/common/amazeui.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
@@ -26,21 +22,20 @@
 </head>
 
 <body>
-<form class="am-form">
+<form class="form">
     <fieldset>
     <legend>清除缓存</legend>
-    <div class="am-form-group">
-      <label for="select"></label>
-      <select id="select">
+    <div class="form-group">
+      <select id="select" class="form-control">
         <option value="1">一卡通</option>
         <option value="2">图书馆</option>
         <option value="3">维修中心</option>
         <option value="4">成绩查询</option>
         <option value="5">课表查询</option>
+        <option value="6">清除所有</option>
       </select>
-      <span class="am-form-caret"></span>
     </div>
-    <p><button id="submit" class="am-btn am-btn-primary">提交</button></p>
+    <p><button id="submit" class="btn btn-primary">提交</button></p>
     </fieldset>
 </form>
 <script type="text/javascript">
@@ -64,6 +59,18 @@
                 $.cookie("passwordg", null, {expires: 0});
                 break;
             case "5":
+                $.cookie("student", null, {expires: 0});
+                $.cookie("password", null, {expires: 0});
+                break;
+            case "6":
+                $.cookie("studenty", null, {expires: 0});
+                $.cookie("passwordy", null, {expires: 0});
+                $.cookie("studentl", null, {expires: 0});
+                $.cookie("passwordl", null, {expires: 0});
+                $.cookie("studentw", null, {expires: 0});
+                $.cookie("passwordw", null, {expires: 0});
+                $.cookie("studentg", null, {expires: 0});
+                $.cookie("passwordg", null, {expires: 0});
                 $.cookie("student", null, {expires: 0});
                 $.cookie("password", null, {expires: 0});
                 break;

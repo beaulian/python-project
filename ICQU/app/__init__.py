@@ -22,4 +22,7 @@ def create_app():
     from .kebiao import kebiao as kebiao_blueprint
     app.register_blueprint(kebiao_blueprint)
 
+    from .repair import repair as repair_blueprint
+    app.register_blueprint(repair_blueprint)
+
     return app
