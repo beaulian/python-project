@@ -29,10 +29,8 @@ body{
 
 .container p{
 	/*margin-bottom: 10px;*/
-	position: absolute;
-	bottom: 50px;
-	left: 20%;
-	right: 20%;
+	padding-top: 40%;
+	text-align: center;
 }
 
 .container form{
