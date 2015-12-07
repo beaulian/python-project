@@ -8,6 +8,10 @@ body{
 	height: 100%;
 	position: absolute;
 	padding-top: 50px;
+	font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, 
+	"Microsoft YaHei", FreeSans, Arimo, "Droid Sans", 
+	"wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", 
+	"FontAwesome", sans-serif;
 }
 
 .container{
@@ -21,16 +25,13 @@ body{
 .container h2{
 	margin: 1.37em 0 0.67em 0;
 	font-size: 2.0em;
-	font-family: "STHeiti";
-	/*display: block;*/
+	display: block;
 	color: rgb(139, 158, 171);
 	/*color:black;*/
 }
 
 .container p{
-	/*margin-bottom: 10px;*/
-	padding-top: 40%;
-	text-align: center;
+	padding-top: 70px;
 }
 
 .container form{
@@ -38,13 +39,7 @@ body{
 	position:relative;
 }
 
-#week {
-	width: 11em !important;
-	height: 2.5em;
-	font-size: 1em;
-}
-
-.container form input, select, input{
+.container form input{
 	border:1px solid rgb(139, 158, 171);
 	background-color: rgba(255, 255, 255, 0.2);
 	width: 23em;
@@ -55,7 +50,7 @@ body{
 	display: block;
 	color: black;
 	outline:none;
-	/*font-weight: bold;*/
+	font-weight: bold;
 	font-size: 0.8em;
 }
 

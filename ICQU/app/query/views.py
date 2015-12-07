@@ -5,7 +5,10 @@ import redis
 from . import query
 from config import REDIS_URI, REDIS_PORT
 from flask import request, make_response, session
-from ..spiders import LibrarySpider, YikatongSpider, GradeSpider
+from ..spiders.gradespider import GradeSpider
+from ..spiders.libraryspider import LibrarySpider
+from ..spiders.yikatongspider import YikatongSpider 
+
 
 r0 = redis.Redis(host=REDIS_URI, port=REDIS_PORT, db=0)
 r1 = redis.Redis(host=REDIS_URI, port=REDIS_PORT, db=1)

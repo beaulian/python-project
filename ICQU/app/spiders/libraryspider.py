@@ -3,29 +3,11 @@
 import json
 import requests
 import threading
-from hashlib import md5
+
+from basespider import BaseSpider
 from BeautifulSoup import BeautifulSoup
 from bs4 import BeautifulSoup as Beautiful
 
-
-# 基类也要指定object父类
-# 所有类都必须要有继承的类,如果什么都不想继承，就继承到object类
-class BaseSpider(object):
-	def __init__(self, SID, password):
-
-            self.SID = SID
-            self.password = password
-            self.flag = True   # 判断是否登录进去了
-            self.headers = {
-                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, \
-                                     like Gecko) Chrome/38.0.2125.122 Safari/537.36"
-            }
-
-            def __str__(self):
-                return "yiban spider"
-
-            def post(self):
-                pass
 
 
 class LibrarySpider(BaseSpider):
@@ -236,120 +218,3 @@ class LibrarySpider(BaseSpider):
             t.start()
         for t in threads:
             t.join()
-
-
-class YikatongSpider(BaseSpider):
-    def __init__(self, SID, password):
-
-        self.login_url = "http://ids.cqu.edu.cn/amserver/UI/Login"
-        self.kard_url = "http://i.cqu.edu.cn/welcome/getUserInfo.do"
-        self.postdata = {
-            "IDToken0": "",
-            "IDToken1": SID,
-            "IDToken2": password,
-            "IDButton": "Submit",
-            "goto": "",
-            "encoded": "true",
-            "gx_charset": "UTF-8"
-        }
-        self.result = []
-        super(YikatongSpider, self).__init__(SID, password)
-
-    def post(self):
-        # print self.postdata
-        s = requests.Session()    # 自动管理cookies
-        req = s.post(self.login_url, data=self.postdata, headers=self.headers)
-        req2 = s.get(self.kard_url, headers=self.headers)
-        # print req2.text.encode("utf-8")
-        soup = BeautifulSoup(req2.text)
-        try:
-            remainder1 = soup("td")[-5].text.split("元".decode("utf-8"))[0] + "元".decode("utf-8")
-            penalty1 = soup("td")[-1].text.split("元".decode("utf-8"))[0] + "元".decode("utf-8")
-        except IndexError:
-            self.flag = False
-            return
-        self.result = [remainder1, penalty1]
-
-
-class KebiaoSpider(BaseSpider):
-    def __init__(self, SID, password):
-
-        self.slogin_url = "http://syjx.cqu.edu.cn/login"
-        self.skebiao_url = "http://syjx.cqu.edu.cn/admin/schedule/getPrintStudentSchedule"
-        self.postdata = {
-            "username": SID,
-            "password": md5(password).hexdigest()
-        }
-        self.postdata2 = {
-            "stuNum": SID
-        }
-        self.sresult = {}
-        super(KebiaoSpider, self).__init__(SID, password)
-
-    def post(self):
-        s = requests.Session()
-        req = s.post(self.slogin_url, data=self.postdata, headers=self.headers)
-        req2 = s.post(self.skebiao_url, data=self.postdata2, headers=self.headers)
-        if not req2.text:
-            self.flag = False
-            return
-        self.sresult = json.loads(req2.text)
-
-
-class GradeSpider(BaseSpider):
-    def __init__(self, SID, password, year, team_number):
-
-        self.login_url =  "http://202.202.1.176:8080/_data/index_login.aspx"
-        # self.prefix_core_url = "http://202.202.1.176:8080/xscj/Stu_MyScore.aspx"
-        self.core_url = "http://202.202.1.176:8080/xscj/Stu_MyScore_rpt.aspx"
-        self.hash_value = md5(SID+md5(password).hexdigest()[0:30].upper()+"10611").hexdigest()[0:30].upper()
-        self.postdata = {
-                    'Sel_Type': 'STU',
-                    'txt_dsdsdsdjkjkjc': SID,
-                    'txt_dsdfdfgfouyy': password,
-                    'txt_ysdsdsdskgf': "",
-                    "pcInfo": "Mozilla%2F4.0+%28compatible%3B+MSIE+7.0%3B+Windows+NT+6.1%3B+Trident%2F7.0%3B+SLCC2%3B+.NET+CLR+2.0.50727%3B+.NET+CLR+3.5.30729%3B+.NET+CLR+3.0.30729%3B+Media+Center+PC+6.0%3B+.NET4.0C%29x860+SN%3ANULL",
-                    "typeName": "%D1%A7%C9%FA",
-                    "aerererdsdxcxdfgfg": "",
-                    "efdfdfuuyyuuckjg": self.hash_value
-        }
-        self.postcore = {
-                    "sel_xn": year,
-                    "sel_xq": team_number,
-                    "SJ": "1",
-                    'btn_search':'%BC%EC%CB%F7',
-                    "SelXNXQ": "2",
-                    "zfx_flag": "0"
-        }
-        self.grade_info = {"课程总数":"","学年学期":"", "课程名称":[],"学分":[],"成绩":[]}
-        self.error = False
-        super(GradeSpider, self).__init__(SID, password)
-
-    def post(self):
-        s = requests.Session()
-        req = s.post(self.login_url, data=self.postdata, headers=self.headers)
-        # req2 = s.get(self.prefix_core_url, headers=self.headers)
-        req2 = s.post(self.core_url, data=self.postcore, headers=self.headers)
-        # print req2.text
-        # return
-        soup = BeautifulSoup(req2.text)
-        try:
-            td = soup("table")[2]("td")
-        except IndexError:
-            self.error = True
-            return
-        self.grade_info["学年学期"] = td[0].text
-        count = len(td)/11
-        self.grade_info["课程总数"] = count
-        if count == 0:
-            self.flag = False
-            return
-
-        for i in range(len(td)):
-            if i % 11 == 1:
-                self.grade_info["课程名称"].append(td[i].text)
-            elif i % 11 == 2:
-                self.grade_info["学分"].append(td[i].text)
-            elif i % 11 == 6:
-                self.grade_info["成绩"].append(td[i].text)
-
