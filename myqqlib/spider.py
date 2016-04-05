@@ -259,7 +259,7 @@ class QQ:
         # print(len(li))
         for li_element in li:
             name = li_element.find('div', 'f-nick').a.text
-            if name == '张瑾':
+            if name == 'xxx':
                 like = li_element.find('a', 'item qz_like_btn_v3')
                 data_unikey = like['data-unikey']
                 data_curkey = like['data-curkey']
